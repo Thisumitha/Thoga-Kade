@@ -64,6 +64,23 @@ public class ItemModelImpl implements ItemModel {
         return getItemDtos(list, sql);
     }
 
+    @Override
+    public ItemDto getItem(String code) throws SQLException, ClassNotFoundException {
+        String sql ="SELECT * FROM item WHERE code=?";
+        PreparedStatement pstm =DBConnection.getInstance().getConnection().prepareStatement(sql);
+        pstm.setString(1,code);
+        ResultSet resultSet = pstm.executeQuery();
+        if (resultSet.next()){
+            return new ItemDto(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getDouble(3),
+                    resultSet.getInt(4)
+            );
+        }
+        return null;
+    }
+
     private List<ItemDto> getItemDtos(List<ItemDto> list, String sql) throws SQLException, ClassNotFoundException {
         PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql);
         ResultSet resultSet = pstm.executeQuery();
