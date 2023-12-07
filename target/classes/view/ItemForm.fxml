@@ -60,7 +60,7 @@
                   <JFXTextField fx:id="txtQty" layoutX="448.0" layoutY="36.0" GridPane.columnIndex="7" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <JFXTextField fx:id="searchText" maxWidth="-Infinity" onKeyTyped="#searchbar" prefWidth="200.0" promptText="search" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
+            <JFXTextField fx:id="searchText" maxWidth="-Infinity" prefWidth="200.0" promptText="search" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
             <JFXTreeTableView fx:id="tblItem" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                <columns>
                   <TreeTableColumn fx:id="colCode" maxWidth="-1.0" minWidth="150.0" prefWidth="150.0" resizable="false" text="Item Code" />

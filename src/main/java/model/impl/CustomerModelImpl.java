@@ -64,7 +64,6 @@ public class CustomerModelImpl implements CustomerModel {
     @Override
     public List<CustomerDto> searchCustomer(String src) throws SQLException, ClassNotFoundException {
         List<CustomerDto> list = new ArrayList<>();
-
         String sql = "SELECT * FROM customer WHERE name LIKE '"+src+"%'";
         PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql);
         ResultSet resultSet = pstm.executeQuery();
@@ -78,4 +77,5 @@ public class CustomerModelImpl implements CustomerModel {
         }
         return list;
     }
+
 }

@@ -1,8 +1,7 @@
 package controller;
 
 import com.jfoenix.controls.JFXTextField;
-import dto.CustomerDto;
-import dto.tm.CustomerTm;
+import db.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,12 +12,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import dto.CustomerDto;
+import dto.tm.CustomerTm;
 import model.CustomerModel;
 import model.impl.CustomerModelImpl;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.*;
 import java.util.List;
 
 
@@ -55,9 +55,9 @@ public class CustomerFormController {
     @FXML
     private TextField txtSalary;
 
-    private final CustomerModel customerModel = new CustomerModelImpl();
+    private CustomerModel customerModel = new CustomerModelImpl();
 
-    public void initialize() {
+    public void initialize(){
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
@@ -86,7 +86,7 @@ public class CustomerFormController {
         try {
             List<CustomerDto> dtoList = customerModel.allCustomers();
 
-            for (CustomerDto dto : dtoList) {
+            for (CustomerDto dto:dtoList) {
                 Button btn = new Button("Delete");
 
                 CustomerTm c = new CustomerTm(
@@ -115,11 +115,11 @@ public class CustomerFormController {
     private void deleteCustomer(String id) {
         try {
             boolean isDeleted = customerModel.deleteCustomer(id);
-            if (isDeleted) {
-                new Alert(Alert.AlertType.INFORMATION, "Customer Deleted!").show();
+            if (isDeleted){
+                new Alert(Alert.AlertType.INFORMATION,"Customer Deleted!").show();
                 loadCustomerTable();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
+            }else{
+                new Alert(Alert.AlertType.ERROR,"Something went wrong!").show();
             }
 
         } catch (ClassNotFoundException | SQLException e) {
@@ -140,7 +140,6 @@ public class CustomerFormController {
         txtAddress.clear();
         txtName.clear();
         txtId.clear();
-        searchText.clear();
         txtId.setEditable(true);
     }
 
@@ -152,14 +151,14 @@ public class CustomerFormController {
                     txtAddress.getText(),
                     Double.parseDouble(txtSalary.getText())
             ));
-            if (isSaved) {
-                new Alert(Alert.AlertType.INFORMATION, "Customer Saved!").show();
+            if (isSaved){
+                new Alert(Alert.AlertType.INFORMATION,"Customer Saved!").show();
                 loadCustomerTable();
                 clearFields();
             }
 
-        } catch (SQLIntegrityConstraintViolationException ex) {
-            new Alert(Alert.AlertType.ERROR, "Duplicate Entry").show();
+        } catch (SQLIntegrityConstraintViolationException ex){
+            new Alert(Alert.AlertType.ERROR,"Duplicate Entry").show();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
@@ -173,8 +172,8 @@ public class CustomerFormController {
                     txtAddress.getText(),
                     Double.parseDouble(txtSalary.getText())
             ));
-            if (isUpdated) {
-                new Alert(Alert.AlertType.INFORMATION, "Customer Updated!").show();
+            if (isUpdated){
+                new Alert(Alert.AlertType.INFORMATION,"Customer Updated!").show();
                 loadCustomerTable();
                 clearFields();
             }
@@ -200,18 +199,13 @@ public class CustomerFormController {
         } else {
             filltable(src);
         }
-
     }
-
     private void filltable(String src) {
         ObservableList<CustomerTm> tmList = FXCollections.observableArrayList();
-
         try {
             List<CustomerDto> dtoList = customerModel.searchCustomer(src);
-
             for (CustomerDto dto : dtoList) {
                 Button btn = new Button("Delete");
-
                 CustomerTm c = new CustomerTm(
                         dto.getId(),
                         dto.getName(),
@@ -219,14 +213,11 @@ public class CustomerFormController {
                         dto.getSalary(),
                         btn
                 );
-
                 btn.setOnAction(actionEvent -> {
                     deleteCustomer(c.getId());
                 });
-
                 tmList.add(c);
             }
-
             tblCustomer.setItems(tmList);
         } catch (SQLException e) {
             e.printStackTrace();

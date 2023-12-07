@@ -23,7 +23,7 @@ public class OrderModelImpl implements OrderModel {
              connection = DBConnection.getInstance().getConnection();
             connection.setAutoCommit(false);
 
-            String sql = "INSERT INTO orders VALUES(?,?,?,)";
+            String sql = "INSERT INTO orders VALUES(?,?,?)";
             PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql);
             pstm.setString(1, dto.getOrderId());
             pstm.setString(2, dto.getDate());

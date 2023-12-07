@@ -8,10 +8,14 @@ import java.util.List;
 
 public interface ItemModel {
     boolean saveItem(ItemDto dto) throws SQLException, ClassNotFoundException;
+
     boolean updateItem(ItemDto dto) throws SQLException, ClassNotFoundException;
+
     boolean deleteItem(String id) throws SQLException, ClassNotFoundException;
     List<ItemDto> allItem() throws SQLException, ClassNotFoundException;
-    List<ItemDto> searchItem(String id) throws SQLException, ClassNotFoundException;
+
     ItemDto getItem(String code) throws SQLException, ClassNotFoundException;
+
+    void removeItem(int num ,String code) throws SQLException, ClassNotFoundException;
 
 }

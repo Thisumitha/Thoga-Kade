@@ -20,7 +20,7 @@
       <JFXTextField fx:id="txtCustName" layoutX="252.0" layoutY="48.0" prefHeight="26.0" prefWidth="178.0" />
       <JFXTextField fx:id="txtDesc" layoutX="252.0" layoutY="120.0" prefHeight="26.0" prefWidth="178.0" />
       <JFXTextField fx:id="txtUnitPrice" layoutX="467.0" layoutY="120.0" prefHeight="26.0" prefWidth="143.0" />
-      <JFXTextField fx:id="txtQty" layoutX="644.0" layoutY="120.0" prefHeight="26.0" prefWidth="78.0" />
+      <JFXTextField fx:id="txtQty" layoutX="644.0" layoutY="120.0" onKeyTyped="#checkAvl" prefHeight="26.0" prefWidth="78.0" />
       <Label layoutX="252.0" layoutY="99.0" prefHeight="18.0" prefWidth="78.0" text="Description" />
       <Label layoutX="252.0" layoutY="28.0" prefHeight="18.0" prefWidth="78.0" text="Name" />
       <Label layoutX="467.0" layoutY="99.0" prefHeight="18.0" prefWidth="78.0" text="Unit Price" />
@@ -66,6 +66,11 @@
       <Label fx:id="lblOrderId" layoutX="683.0" layoutY="24.0" prefHeight="26.0" prefWidth="116.0">
          <font>
             <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="max" layoutX="729.0" layoutY="120.0" prefHeight="26.0" prefWidth="86.0" textFill="#dd0000" visible="false">
+         <font>
+            <Font name="System Bold" size="17.0" />
          </font>
       </Label>
    </children>

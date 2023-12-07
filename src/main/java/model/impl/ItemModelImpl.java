@@ -56,13 +56,7 @@ public class ItemModelImpl implements ItemModel {
     }
 
 
-    @Override
-    public List<ItemDto> searchItem(String id) throws SQLException, ClassNotFoundException {
-        List<ItemDto> list = new ArrayList<>();
 
-        String sql = "SELECT * FROM item WHERE code LIKE '" + id + "%'";
-        return getItemDtos(list, sql);
-    }
 
     @Override
     public ItemDto getItem(String code) throws SQLException, ClassNotFoundException {
@@ -79,6 +73,17 @@ public class ItemModelImpl implements ItemModel {
             );
         }
         return null;
+    }
+
+    @Override
+    public void removeItem(int num ,String code) throws SQLException, ClassNotFoundException {
+        String sql = "UPDATE item SET qtyOnHand =? WHERE code=?";
+        PreparedStatement pstm =DBConnection.getInstance().getConnection().prepareStatement(sql);
+        pstm.setInt(1,num);
+        pstm.setString(2,code);
+        pstm.executeUpdate();
+
+
     }
 
     private List<ItemDto> getItemDtos(List<ItemDto> list, String sql) throws SQLException, ClassNotFoundException {
